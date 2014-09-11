@@ -64,16 +64,11 @@ public class MainActivity extends Activity {
 
 	protected void conseguir_inmuebles(String string) {
 		JSONInmuebleParser jip = new JSONInmuebleParser(string);
-		try {
-			Intent i = new Intent(getBaseContext(), ListarInmueblesActivity.class);
+		Intent i = new Intent(getBaseContext(), ListarInmueblesActivity.class);
 			//i.putExtra(Propiedades.ARRAYPROPIEDADES, jip.getInmuebles());
 			i.putParcelableArrayListExtra(Propiedades.ARRAYPROPIEDADES, jip.getInmuebles());
 			startActivity(i);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		/*jip.getImages(0);
 		

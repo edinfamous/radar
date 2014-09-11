@@ -47,22 +47,67 @@ public class JSONInmuebleParser {
 		
 	}
 	
-	public ArrayList<Inmueble> getInmuebles() throws JSONException{
+	public ArrayList<Inmueble> getInmuebles(){
 		ArrayList<Inmueble> mInmuebles = new ArrayList<Inmueble>();
 		for (int i=0; i<jsonArray.length(); i++){
-			JSONObject jo = jsonArray.getJSONObject(i);
-			
-			Inmueble inmueble = new Inmueble(jo.getInt(Inmueble.NID));
-			inmueble.setBody(jo.getString(Inmueble.BODY));
-			inmueble.setAge(jo.getString(Inmueble.AGE));
-			inmueble.setNode_title(jo.getString(Inmueble.NODE_TITLE));
-			inmueble.setBusiness_Type(jo.getString(Inmueble.BUSINESS_TYPE));
-			
-			Log.d("Inmueble", i+" : "+inmueble.toString());
-			
-			mInmuebles.add(inmueble);
+			JSONObject jo;
+			try {
+				jo = jsonArray.getJSONObject(i);
+				
+				Inmueble inmueble = new Inmueble(jo.getInt(Inmueble.NID));
+				try {
+					inmueble.setBody(jo.getString(Inmueble.BODY));
+				}
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					inmueble.setAge(jo.getString(Inmueble.AGE));
+				}
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					inmueble.setNode_title(jo.getString(Inmueble.NODE_TITLE));
+				}
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					inmueble.setBusiness_Type(jo.getString(Inmueble.BUSINESS_TYPE));
+				}
+				catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				getImages(jo);
+				
+				inmueble.setImages(mImages);
+				
+				mInmuebles.add(inmueble);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return mInmuebles;
+	}
+
+	private void getImages(JSONObject jo) {
+		try {
+			JSONArray jaImages = jo.getJSONArray("Images");
+			
+			mImages = new ArrayList<String>();
+			for (int j=0; j<jaImages.length(); j++){
+				Document doc = Jsoup.parse(jaImages.getString(j), "UTF-8");
+				mImages.add(doc.getElementsByTag("img").attr("src"));
+				}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public int getmNumeroinmuebles() {
