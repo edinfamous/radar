@@ -14,13 +14,13 @@
         android:text="@string/lo_nuevo" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_principal_buscar"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btn_principal_nuevo"
-        android:text="Button" />
+        android:text="@string/buscar" />
 
 </RelativeLayout>
