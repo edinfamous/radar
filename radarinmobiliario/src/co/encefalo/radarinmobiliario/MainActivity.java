@@ -1,23 +1,11 @@
 package co.encefalo.radarinmobiliario;
 
-import java.util.ArrayList;
-
-import org.json.JSONException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	
 	private Button btn_principal_nuevo;
+	private Button btn_principal_buscar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +29,19 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		btn_principal_buscar = (Button)findViewById(R.id.btn_principal_buscar);
+		btn_principal_buscar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				buscar();
+			}
+		});
+		
+	}
+
+	protected void buscar() {
+		Intent i = new Intent(getBaseContext(), BuscarActivity.class);
+		startActivity(i);
 	}
 
 	protected void nuevo() {
@@ -64,16 +66,11 @@ public class MainActivity extends Activity {
 
 	protected void conseguir_inmuebles(String string) {
 		JSONInmuebleParser jip = new JSONInmuebleParser(string);
-		try {
-			Intent i = new Intent(getBaseContext(), ListarInmueblesActivity.class);
+		Intent i = new Intent(getBaseContext(), ListarInmueblesActivity.class);
 			//i.putExtra(Propiedades.ARRAYPROPIEDADES, jip.getInmuebles());
 			i.putParcelableArrayListExtra(Propiedades.ARRAYPROPIEDADES, jip.getInmuebles());
 			startActivity(i);
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		/*jip.getImages(0);
 		

@@ -1,5 +1,7 @@
 package co.encefalo.radarinmobiliario;
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,20 +11,25 @@ public class Inmueble implements Parcelable{
 	public static final String AGE = "Age";
 	public static final String NODE_TITLE = "node_title";
 	public static final String BUSINESS_TYPE = "Business Type";
+	public static final String IMAGES = "Images";
 	
 	private int nid;
 	private String node_title;
 	private String Age;
 	private String Body;
 	private String Business_Type;
+	private ArrayList<String> Images;
 
 	public Inmueble(int nid) {
 		this.nid=nid;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Inmueble (Parcel p){
 		nid=p.readInt();
 		node_title=p.readString();
+		Images=(ArrayList<String>) p.readSerializable();
+		
 	}
 
 	public int getNid() {
@@ -42,7 +49,7 @@ public class Inmueble implements Parcelable{
 	}
 
 	public void setAge(String age) {
-		Age = age;
+		this.Age = age;
 	}
 
 	public String getBody() {
@@ -50,7 +57,7 @@ public class Inmueble implements Parcelable{
 	}
 
 	public void setBody(String body) {
-		Body = body;
+		this.Body = body;
 	}
 
 	public String getBusiness_Type() {
@@ -58,11 +65,11 @@ public class Inmueble implements Parcelable{
 	}
 
 	public void setBusiness_Type(String business_Type) {
-		Business_Type = business_Type;
+		this.Business_Type = business_Type;
 	}
 	
 	public String toString(){
-		return nid+" "+Body;
+		return nid+" "+Age+" "+Body+" "+Images;
 		
 	}
 
@@ -75,8 +82,19 @@ public class Inmueble implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(this.nid);
 	    dest.writeString(this.node_title);
+	    dest.writeSerializable(this.Images);
 	}
 	
+
+	public ArrayList<String> getImages() {
+		return Images;
+	}
+
+	public void setImages(ArrayList<String> images) {
+		this.Images = images;
+	}
+
+
 	@SuppressWarnings("rawtypes")
 	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Inmueble createFromParcel(Parcel in) {
