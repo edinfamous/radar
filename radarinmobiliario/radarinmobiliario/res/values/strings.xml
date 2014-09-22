@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Radar Inmobiliario</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="lo_nuevo">Lo nuevo</string>
+	<string name="buscar">Buscar</string>
+	<string name="escanear_codigo">Escanear código</string>
+</resources>
